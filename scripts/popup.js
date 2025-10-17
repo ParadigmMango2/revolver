@@ -5,5 +5,10 @@ window.addEventListener("load", () =>
 		home.addEventListener("change", (e) =>
 			chrome.storage.local.set({ home: e.target.checked })
 		)
+		const subreddits = document.getElementById("subreddits")
+		subreddits.checked = res.subreddits === undefined || res.subreddits
+		subreddits.addEventListener("change", (e) =>
+			chrome.storage.local.set({ subreddits: e.target.checked })
+		)
 	})
 )
