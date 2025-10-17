@@ -1,0 +1,13 @@
+{
+	"manifest_version": 3,
+	"name": "Reddit Enhancement: Vanquish Overuse, Limit Visual Engagement Risks",
+	"description": "(AKA. REVOLVER) lets you access Reddit while preventing addictive habits by removing feeds",
+	"version": "0.1",
+	"action": {},
+	"icons": {},
+	"permissions": [],
+	"content_scripts": [],
+	"browser_specific_settings": {
+		"gecko": { "id": "@revolver.paradigmmango" }
+	}
+}
