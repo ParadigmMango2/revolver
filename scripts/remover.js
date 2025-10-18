@@ -11,12 +11,15 @@ function update() {
 			selectors.push(
 				"shreddit-feed[reload-url^=\"/svc/shreddit/feeds/home-feed\"]",
 				"shreddit-feed[reload-url^=\"/svc/shreddit/feeds/popular-feed\"]",
-				"shreddit-feed[reload-url^=\"/svc/shreddit/feeds/dynamic-feed\"]",
+				"#dynamic-feed-main", // dynamic v1 feed + sort dropdowns
+				".main-container:has(> #main-content > #dynamic-feed-main):not(:has(.right-sidebar))", // dynamic v2 feed + sort dropdowns
+				"div.my-xs.mx-2xs > shreddit-async-loader", // home + popular sort dropdowns
 			)
 		if (res.subreddits === undefined || res.subreddits)
 			selectors.push(
 				"shreddit-feed[reload-url^=\"/svc/shreddit/community-more-posts\"]", // subreddit feed
 				"community-highlight-carousel",
+				"div.mb-xs.mt-xs > shreddit-async-loader", // subreddit sort dropdowns
 			)
 		style.innerText = selectors.length > 0
 			? selectors.join(",") + "{display:none!important;}"
