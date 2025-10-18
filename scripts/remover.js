@@ -15,6 +15,7 @@ function update() {
 				".main-container:has(> #main-content > #dynamic-feed-main):not(:has(.right-sidebar))", // dynamic v2 feed + sort dropdowns
 				"div.my-xs.mx-2xs > shreddit-async-loader", // home + popular sort dropdowns
 				"shreddit-gallery-carousel", // popular carousel
+				"div.my-xs.mx-2xs ~ hr", // line between dropdowns and feed
 			)
 		if (res.subreddits === undefined || res.subreddits)
 			selectors.push(
