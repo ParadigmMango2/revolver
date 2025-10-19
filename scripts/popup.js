@@ -15,5 +15,10 @@ window.addEventListener("load", () =>
 		sidebar.addEventListener("change", (e) =>
 			chrome.storage.local.set({ sidebar: e.target.checked })
 		)
+		const videoEndscreen = document.getElementById("video-endscreen")
+		videoEndscreen.checked = res.videoEndscreen === undefined || res.videoEndscreen
+		videoEndscreen.addEventListener("change", (e) =>
+			chrome.storage.local.set({ videoEndscreen: e.target.checked })
+		)
 	})
 )

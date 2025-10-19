@@ -2,7 +2,7 @@ const style = document.createElement("style")
 document.getElementsByTagName("head")[0].appendChild(style)
 update()
 chrome.storage.onChanged.addListener((changes, _) => {
-	if (changes.home || changes.subreddits || changes.sidebar) update()
+	if (changes.home || changes.subreddits || changes.sidebar || changes.videoEndscreen) update()
 })
 function update() {
 	chrome.storage.local.get(res => {
@@ -35,6 +35,11 @@ function update() {
 				"hr:has(+ h6 + ul > li[id^=\"rr-trending-post\"])", // trending posts hr
 				"div:has(> ul > li > a[href^=\"https://www.reddit.com/posts/\"])", // top posts section
 				"aside#answers-suggested-queries-m3", // reddit answers queries
+			)
+		if (res.videoEndscreen === undefined || res.videoEndscreen)
+			selectors.push(
+				".overlay-recommendations", // video suggestions
+				".overlay-header", // video endscreen header
 			)
 		style.innerText = selectors.length > 0
 			? selectors.join(",") + "{display:none!important;}"
