@@ -2,7 +2,7 @@ const style = document.createElement("style")
 document.getElementsByTagName("head")[0].appendChild(style)
 update()
 chrome.storage.onChanged.addListener((changes, _) => {
-	if (changes.home || changes.subreddits) update()
+	if (changes.home || changes.subreddits || changes.sidebar) update()
 })
 function update() {
 	chrome.storage.local.get(res => {
@@ -16,7 +16,7 @@ function update() {
 				"#dynamic-feed-main", // dynamic v1 feed + sort dropdowns
 				".main-container:has(> #main-content > #dynamic-feed-main):not(:has(.right-sidebar))", // dynamic v2 feed + sort dropdowns
 				"div.my-xs.mx-2xs > shreddit-async-loader", // home + popular sort dropdowns
-				"div.my-xs.mx-2xs ~ hr", // line between dropdowns and feed
+				"div.my-xs.mx-2xs + hr", // line between dropdowns and feed
 				"shreddit-gallery-carousel", // popular carousel
 				"aside[aria-label=\"Popular Communities\"]",
 			)
@@ -25,6 +25,15 @@ function update() {
 				"shreddit-feed[reload-url^=\"/svc/shreddit/community-more-posts\"]", // subreddit feed
 				"community-highlight-carousel",
 				"div.mb-xs.mt-xs > shreddit-async-loader", // subreddit sort dropdowns
+			)
+		if (res.sidebar === undefined || res.sidebar)
+			selectors.push(
+				"aside[aria-label=\"Related Posts Section\"]",
+				"ul:has(> li[id^=\"rr-trending-post\"])", // trending posts content
+				"h6:has(+ ul > li[id^=\"rr-trending-post\"])", // trending posts header
+				"hr:has(+ h6 + ul > li[id^=\"rr-trending-post\"])", // trending posts hr
+				"div:has(> ul > li > a[href^=\"https://www.reddit.com/posts/\"])", // top posts section
+				"aside#answers-suggested-queries-m3", // reddit answers queries
 			)
 		style.innerText = selectors.length > 0
 			? selectors.join(",") + "{display:none!important;}"

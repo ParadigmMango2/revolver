@@ -10,5 +10,10 @@ window.addEventListener("load", () =>
 		subreddits.addEventListener("change", (e) =>
 			chrome.storage.local.set({ subreddits: e.target.checked })
 		)
+		const sidebar = document.getElementById("sidebar")
+		sidebar.checked = res.sidebar === undefined || res.sidebar
+		sidebar.addEventListener("change", (e) =>
+			chrome.storage.local.set({ sidebar: e.target.checked })
+		)
 	})
 )
