@@ -34,7 +34,7 @@ function update() {
 				"h6:has(+ ul > li[id^=\"rr-trending-post\"])", // trending posts header
 				"hr:has(+ h6 + ul > li[id^=\"rr-trending-post\"])", // trending posts hr
 				"div:has(> ul > li > a[href^=\"https://www.reddit.com/posts/\"])", // top posts section
-				"aside#answers-suggested-queries-m3", // reddit answers queries
+				"#answers-suggested-queries-m3", // reddit answers queries
 			)
 		if (res.videoEndscreen === undefined || res.videoEndscreen)
 			selectors.push(
