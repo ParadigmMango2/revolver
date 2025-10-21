@@ -41,7 +41,7 @@ function update() {
 				".overlay-recommendations", // video suggestions
 				".overlay-header", // video endscreen header
 			)
-		if (res.leftSidebar === undefined || res.leftSidebar)
+		if (res.leftSidebar)
 			selectors.push(
 				"flex-left-nav-container",
 			)
