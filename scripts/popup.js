@@ -10,15 +10,20 @@ window.addEventListener("load", () =>
 		subreddits.addEventListener("change", (e) =>
 			chrome.storage.local.set({ subreddits: e.target.checked })
 		)
-		const sidebar = document.getElementById("sidebar")
-		sidebar.checked = res.sidebar === undefined || res.sidebar
-		sidebar.addEventListener("change", (e) =>
-			chrome.storage.local.set({ sidebar: e.target.checked })
+		const rightSidebar = document.getElementById("right-sidebar")
+		rightSidebar.checked = res.rightSidebar === undefined || res.rightSidebar
+		rightSidebar.addEventListener("change", (e) =>
+			chrome.storage.local.set({ rightSidebar: e.target.checked })
 		)
 		const videoEndscreen = document.getElementById("video-endscreen")
 		videoEndscreen.checked = res.videoEndscreen === undefined || res.videoEndscreen
 		videoEndscreen.addEventListener("change", (e) =>
 			chrome.storage.local.set({ videoEndscreen: e.target.checked })
+		)
+		const leftSidebar = document.getElementById("left-sidebar")
+		leftSidebar.checked = res.leftSidebar
+		leftSidebar.addEventListener("change", (e) =>
+			chrome.storage.local.set({ leftSidebar: e.target.checked })
 		)
 	})
 )

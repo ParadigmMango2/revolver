@@ -2,7 +2,7 @@ const style = document.createElement("style")
 document.getElementsByTagName("head")[0].appendChild(style)
 update()
 chrome.storage.onChanged.addListener((changes, _) => {
-	if (changes.home || changes.subreddits || changes.sidebar || changes.videoEndscreen) update()
+	if (changes.home || changes.subreddits || changes.rightSidebar || changes.videoEndscreen || changes.leftSidebar) update()
 })
 function update() {
 	chrome.storage.local.get(res => {
@@ -27,7 +27,7 @@ function update() {
 				"div.mb-xs.mt-xs > shreddit-async-loader", // subreddit sort dropdowns
 				"div.my-xs.mx-2xs + hr:has(+ shreddit-feed[reload-url^=\"/svc/shreddit/community-more-posts/\"])", // line between dropdowns and feed
 			)
-		if (res.sidebar === undefined || res.sidebar)
+		if (res.rightSidebar === undefined || res.rightSidebar)
 			selectors.push(
 				"aside[aria-label=\"Related Posts Section\"]",
 				"ul:has(> li[id^=\"rr-trending-post\"])", // trending posts content
@@ -40,6 +40,10 @@ function update() {
 			selectors.push(
 				".overlay-recommendations", // video suggestions
 				".overlay-header", // video endscreen header
+			)
+		if (res.leftSidebar === undefined || res.leftSidebar)
+			selectors.push(
+				"flex-left-nav-container",
 			)
 		style.innerText = selectors.length > 0
 			? selectors.join(",") + "{display:none!important;}"
