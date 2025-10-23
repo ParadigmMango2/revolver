@@ -1,9 +1,12 @@
-const style = document.createElement("style")
-document.getElementsByTagName("head")[0].appendChild(style)
+const styles = []
+const shadowHosts = ["reddit-search-large", "reddit-search-small"] // for nesting, order parents before children. if root element is custom, mention it(custom#id, not #id)
+injectHead()
+injectShadowRoots()
 update()
 chrome.storage.onChanged.addListener((changes, _) => {
-	if (changes.home || changes.subreddits || changes.rightSidebar || changes.videoEndscreen || changes.leftSidebar) update()
+	if (changes.home || changes.subreddits || changes.rightSidebar || changes.trendingSearches || changes.videoEndscreen || changes.leftSidebar) update()
 })
+
 function update() {
 	chrome.storage.local.get(res => {
 		const selectors = []
@@ -36,6 +39,11 @@ function update() {
 				"div:has(> ul > li > a[href^=\"https://www.reddit.com/posts/\"])", // top posts section
 				"#answers-suggested-queries-m3", // reddit answers queries
 			)
+		if (res.trendingSearches === undefined || res.trendingSearches)
+			selectors.push(
+				"#reddit-trending-searches-partial-container",
+				"div:has(+ #reddit-trending-searches-partial-container)",
+			)
 		if (res.videoEndscreen === undefined || res.videoEndscreen)
 			selectors.push(
 				".overlay-recommendations", // video suggestions
@@ -45,8 +53,27 @@ function update() {
 			selectors.push(
 				"flex-left-nav-container",
 			)
-		style.innerText = selectors.length > 0
-			? selectors.join(",") + "{display:none!important;}"
-			: ""
+		styles.forEach((style) => {
+			style.innerText = selectors.length > 0
+				? selectors.join(",") + "{display:none!important;}"
+				: ""
+		})
+	})
+}
+
+function injectHead() {
+	const style = document.createElement("style")
+	document.getElementsByTagName("head")[0].appendChild(style)
+	styles.push(style)
+}
+
+// Currently only works on custom elements
+function injectShadowRoots() {
+	shadowHosts.forEach((shadowHost) => {
+		const style = document.createElement("style")
+		customElements.whenDefined(shadowHost).then(() => {
+			document.querySelector(shadowHost).shadowRoot.appendChild(style)
+		})
+		styles.push(style)
 	})
 }

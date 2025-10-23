@@ -15,6 +15,11 @@ window.addEventListener("load", () =>
 		rightSidebar.addEventListener("change", (e) =>
 			chrome.storage.local.set({ rightSidebar: e.target.checked })
 		)
+		const trendingSearches = document.getElementById("trending-searches")
+		trendingSearches.checked = res.trendingSearches === undefined || res.trendingSearches
+		trendingSearches.addEventListener("change", (e) =>
+			chrome.storage.local.set({ trendingSearches: e.target.checked })
+		)
 		const videoEndscreen = document.getElementById("video-endscreen")
 		videoEndscreen.checked = res.videoEndscreen === undefined || res.videoEndscreen
 		videoEndscreen.addEventListener("change", (e) =>
