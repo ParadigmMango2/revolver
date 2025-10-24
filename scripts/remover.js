@@ -13,6 +13,8 @@ function update() {
 			selectors.push(
 				"shreddit-feed[reload-url^=\"/svc/shreddit/feeds/home-feed\"]",
 				"shreddit-feed[reload-url^=\"/svc/shreddit/feeds/popular-feed\"]",
+				":not(.subreddits-page):not(.user-subreddits-page) > iframe#gtm-jail[name*=\'\"subreddit\":\"\"\'] ~ div.content > #siteTable", // old feeds
+				":not(.subreddits-page):not(.user-subreddits-page) > iframe#gtm-jail[name*=\'\"subreddit\":\"\"\'] ~ div.content > .menuarea", // old sort dropdowns
 				"#dynamic-feed-main", // dynamic v1 feed + sort dropdowns
 				".main-container:has(> #main-content > #dynamic-feed-main):not(:has(.right-sidebar))", // dynamic v2 feed + sort dropdowns
 				"div.my-xs.mx-2xs > shreddit-async-loader", // home + popular sort dropdowns
@@ -26,6 +28,8 @@ function update() {
 				"community-highlight-carousel",
 				"div.mb-xs.mt-xs > shreddit-async-loader", // subreddit sort dropdowns
 				"div.my-xs.mx-2xs + hr:has(+ shreddit-feed[reload-url^=\"/svc/shreddit/community-more-posts/\"])", // line between dropdowns and feed
+				":not(.subreddits-page):not(.user-subreddits-page) > iframe#gtm-jail:not([name*=\'\"subreddit\":\"\"\']) ~ div.content:not(:has(> .commentarea)) > #siteTable", // old subreddit feed
+				":not(.subreddits-page):not(.user-subreddits-page) > iframe#gtm-jail:not([name*=\'\"subreddit\":\"\"\']) ~ div.content > .menuarea", // old subreddit sort dropdowns
 			)
 		if (res.rightSidebar === undefined || res.rightSidebar)
 			selectors.push(
@@ -35,6 +39,7 @@ function update() {
 				"hr:has(+ h6 + ul > li[id^=\"rr-trending-post\"])", // trending posts hr
 				"div:has(> ul > li > a[href^=\"https://www.reddit.com/posts/\"])", // top posts section
 				"#answers-suggested-queries-m3", // reddit answers queries
+				"aside.read-next", // old read next
 			)
 		if (res.videoEndscreen === undefined || res.videoEndscreen)
 			selectors.push(
@@ -43,7 +48,8 @@ function update() {
 			)
 		if (res.leftSidebar)
 			selectors.push(
-				"flex-left-nav-container",
+				"flex-left-nav-container", // new left bar
+				".listing-chooser", // old left bar
 			)
 		style.innerText = selectors.length > 0
 			? selectors.join(",") + "{display:none!important;}"
