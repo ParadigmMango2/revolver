@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "REVOLVER: Reddit Feed Removal",
-	"description": "\"Reddit Enhancement: Vanquish Overuse, Limit Visual Engagement Risks(AKA REVOLVER)\" lets you access Reddit while preventing addictive habits by removing feeds",
+	"description": "\"Reddit Enhancement: Vanquish Overuse, Limit Visual Engagement Risks\" Access Reddit and prevent addictive habits by removing feeds",
 	"version": "1.0",
 	"action": { "default_popup": "popup.html" },
 	"icons": {
